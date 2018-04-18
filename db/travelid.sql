@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2018 at 10:27 AM
+-- Generation Time: Apr 18, 2018 at 10:39 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -205,34 +205,24 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `customer`
+-- Constraints for table `reservation`
 --
-ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`id`) REFERENCES `reservation` (`customerid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `reservation`
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`rute_id`) REFERENCES `rute` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rute`
 --
 ALTER TABLE `rute`
-  ADD CONSTRAINT `rute_ibfk_1` FOREIGN KEY (`id`) REFERENCES `reservation` (`rute_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rute_ibfk_1` FOREIGN KEY (`transportationid`) REFERENCES `transportation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transportation`
 --
 ALTER TABLE `transportation`
-  ADD CONSTRAINT `transportation_ibfk_1` FOREIGN KEY (`id`) REFERENCES `rute` (`transportationid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `transportation_type`
---
-ALTER TABLE `transportation_type`
-  ADD CONSTRAINT `transportation_type_ibfk_1` FOREIGN KEY (`id`) REFERENCES `transportation` (`transportation_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `reservation` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `transportation_ibfk_1` FOREIGN KEY (`transportation_id`) REFERENCES `transportation_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
